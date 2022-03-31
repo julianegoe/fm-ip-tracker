@@ -1,6 +1,6 @@
 <template>
 <div id="map">
-    <l-map v-model="zoom" v-model:zoom="zoom" :center="latLng" :min-zoom="8" :max-zoom="14" zoom-control="false" scroll-wheel-zoom="center" >
+    <l-map v-model="zoom" v-model:zoom="zoom" :center="latLng" :min-zoom="8" :max-zoom="14" scroll-wheel-zoom="center" >
     <l-tile-layer
       :url="tileMapUrl"
     />
@@ -19,10 +19,9 @@ import image from '../assets/images/icon-location.svg'
 defineProps({
     latLng: Array,
 });
-const tileMapUrl = ref('https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=36163038d7414377ba305a1b56ce9859');
+const tileMapUrl = ref(`https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${import.meta.env.VITE_API_KEY_THUNDERFOREST}`);
 const zoom = ref(10);
 const iconSize = ref([42,48]);
-
 
 </script>
 

@@ -51,8 +51,8 @@ defineProps({
 .results-column {
     display: flex;
     flex-direction: column;
-    height: 4.5rem;
-    width: 8rem;
+    min-width: 8rem;
+    min-height: 4.5rem;
     padding: 0 1rem;
     border-right: 1px solid hsla(0, 0%, 59%, 0.418);
 }
@@ -77,7 +77,45 @@ defineProps({
 
 .results-value {
     padding: 0.5rem 0;
-    max-width: 12rem;
+    max-width: 15rem;
     font-weight: 500;
 }
+
+
+ @media (max-width: 768px) {
+
+     .results-container {
+         margin: auto 1rem;
+     }
+    .results-row {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .results-column {
+    border-right: none;
+    height: unset;
+    padding: 0;
+    padding-bottom: 1rem;
+    }
+
+    .results-column:first-child {
+    padding: 0;
+    padding-bottom: 1rem;
+}
+.results-column:last-child {
+     border-right: none;
+     padding: 0;
+     padding-bottom: 0;
+}
+
+.results-category {
+    text-align: center;
+}
+.results-value {
+    max-width: unset;
+    text-align: center;
+}
+  }
 </style>

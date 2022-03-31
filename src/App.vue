@@ -2,6 +2,7 @@
 <div class="control-unit">
   <h1 class="app-name">IP Address Tracker</h1>
   <TheInput v-model="input"/>
+  <p class="error-message">{{ errorMessage }}</p>
 </div>
 <div class="results-unit">
   <ResultsWidget :ip-address="ipAddress" :location="location" :timezone="timezone" :isp="isp" />
@@ -17,6 +18,7 @@ import { getIpData } from './services/RequestService.js';
 
 const input = ref('');
 const results = ref();
+const errorMessage = ref('');
 const ipAddress = computed(() => {
   if (results.value) {
     return results.value.ip;
@@ -44,8 +46,12 @@ const latLng = computed(() => {
 })
 watch(input, async () => {
   const result = await getIpData(input.value);
-  console.log(result);
-  results.value = result;
+  errorMessage.value = '';
+  if (!result.code) {
+      results.value = result;
+  } else {
+    errorMessage.value = `Error ${result.code}: ${result.messages}`
+  }
 })
 </script>
 
@@ -74,10 +80,20 @@ watch(input, async () => {
 
 .app-name {
   margin-top: 2rem;
+  padding-bottom: 1rem;
+  color: white;
+  font-weight: 500;
 }
 
 .results-unit {
   display: flex;
   justify-content: center;
+}
+
+.error-message {
+  color: red;
+  background-color: white;
+  font-size: 0.75rem;
+  margin: 0.25rem;
 }
 </style>
